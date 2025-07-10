@@ -132,6 +132,19 @@ async function check_url(url, div, parent, k1, k2) {
 			div
 		)
 			.then((response) => {
+// Determine whether the request was blocked
+const redirected = response.redirected || response.url.startsWith('moz-extension://') || response.url.startsWith('chrome-extension://');
+const opaqueBlocked = response.type === 'opaque' && response.status === 0;
+const corsBlocked = response.type === 'cors' && response.status === 0;
+const isBlocked = redirected || opaqueBlocked || corsBlocked || (response.type === 'basic' && response.status === 200);
+if (isBlocked) {
+    hostDiv.innerHTML = icons['v'] + '<span>' + url + '</span>';
+    abt.blocked += 1;
+    Object.assign(abt.hosts[k1][k2], { [url]: true });
+    tslog += '<br> ' + url + ' - blocked';
+    return;
+}
+
 				console.log(response)
 				if (response.type == 'basic' && response.status == 200) {
 					hostDiv.innerHTML = icons['v'] + '<span>' + url + '</span>'
