@@ -145,7 +145,6 @@
 0.0.0.0 ads.yahoo.com
 0.0.0.0 analytics.yahoo.com
 0.0.0.0 geo.yahoo.com
-0.0.0.0 udc.yahoo.com
 0.0.0.0 udcm.yahoo.com
 0.0.0.0 analytics.query.yahoo.com
 0.0.0.0 partnerads.ysm.yahoo.com
